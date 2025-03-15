@@ -10,22 +10,40 @@ public class Scene extends JPanel {
 
 	private ImageIcon icoBandeFond;
 	private Image imgBandeFond;
-	
+
 	private final int LARGEUR_BANDE_FOND = 140;
-	
+
+	public int xFond;
+
 	// Constructeur
 	public Scene() {
-		
+
 		super();
 		this.icoBandeFond = new ImageIcon(getClass().getResource("/images/bandeFondEcran.png"));
 		this.imgBandeFond = this.icoBandeFond.getImage();
+
+		this.xFond = 0; // Initialisation de la variable xFond
+		// Flux indépendant -> Thread
+		Thread chronoEcran = new Thread(new Chrono());
+		chronoEcran.start();
 	}
-	
-	// Méthode
+
+	// Méthodes
+	private void deplacementFond(Graphics g) {
+
+		if (this.xFond == -this.LARGEUR_BANDE_FOND) {
+			this.xFond = 0;
+		}
+
+		// super.paintComponent(g);
+		g.drawImage(this.imgBandeFond, this.xFond, 0, null);
+		g.drawImage(this.imgBandeFond, this.xFond + this.LARGEUR_BANDE_FOND, 0, null);
+		g.drawImage(this.imgBandeFond, this.xFond + this.LARGEUR_BANDE_FOND * 2, 0, null);
+		g.drawImage(this.imgBandeFond, this.xFond + this.LARGEUR_BANDE_FOND * 3, 0, null);
+	}
+
 	public void paintComponent(Graphics g) {
-		
-		//super.paintComponent(g);
-		g.drawImage(this.imgBandeFond, 0, 0, null);
-		g.drawImage(this.imgBandeFond, this.LARGEUR_BANDE_FOND, 0, null);
+
+		this.deplacementFond(g);
 	}
 }
