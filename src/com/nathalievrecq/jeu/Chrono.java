@@ -2,7 +2,7 @@ package com.nathalievrecq.jeu;
 
 public class Chrono implements Runnable {
 
-	private final int PAUSE = 15;
+	private final int PAUSE = 15; // Réglage de la vitesse.
 
 	@Override
 	public void run() {
